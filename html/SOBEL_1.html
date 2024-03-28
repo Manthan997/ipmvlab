@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SOBEL_1</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    tags: 'all'
+  }
+};
+</script>
+<script type="text/javascript" async 
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<style>
+body > * {
+  max-width: 42em;
+}
+body {
+  font-family: "Roboto Condensed", sans-serif;
+  padding-left: 7.5em;
+  padding-right: 7.5em;
+}
+pre, code {
+  max-width: 50em;
+  font-family: monospace;
+}
+pre.oct-code {
+  border: 1px solid Grey;
+  padding: 5px;
+}
+pre.oct-code-output {
+  margin-left: 2em;
+}
+span.comment {
+  color: ForestGreen;
+}
+span.keyword {
+  color: Blue;
+}
+span.string {
+  color: DarkOrchid;
+}
+footer {
+  margin-top: 2em;
+  font-size: 80%;
+}
+a, a:visited {
+  color: Blue;
+}
+h2 {
+  font-family: "Roboto Condensed", serif;
+  margin-top: 1.5em;
+}
+h2 a, h2 a:visited {
+  color: Black;
+}
+</style>
+
+</head>
+<body>
+<h1>SOBEL_1</h1>
+
+
+<pre class="oct-code">clc;
+clear all;
+
+<span class="comment">% read img</span>
+f = double(imread(<span class="string">'Img_3.tif'</span>));
+[row, col] = size(f);
+
+<span class="comment">% mask</span>
+wx = [-1 -2 -1; 0 0 0; 1 2 1];
+wy = [-1 0 1 ; -2 0 2 ; -1 0 1 ];
+
+<span class="comment">%main loops</span>
+<span class="keyword">for</span> x=2:1:(row-1)
+  <span class="keyword">for</span> y=2:1:(col-1)
+    gx(x,y) =  f(x-1, y-1)*wx(1,1) + f(x-1, y)*wx(1,2) + f(x-1, y+1)*wx(1,3) +...
+          f(x, y-1)*wx(2,1) +f(x, y-1)*wx(2,2) +f(x, y-1)*wx(2,3) +...
+          f(x+1, y-1)*wx(3,1) +f(x+1, y-1)*wx(3,2) +f(x+1, y-1)*wx(3,3);
+
+    gy(x,y) =  f(x-1, y-1)*wy(1,1) + f(x-1, y)*wy(1,2) + f(x-1, y+1)*wy(1,3) +...
+          f(x, y-1)*wy(2,1) +f(x, y-1)*wy(2,2) +f(x, y-1)*wy(2,3) +...
+          f(x+1, y-1)*wy(3,1) +f(x+1, y-1)*wy(3,2) +f(x+1, y-1)*wy(3,3);
+  <span class="keyword">endfor</span>
+<span class="keyword">endfor</span>
+
+figure(1), imshow(uint8(f)) , title(<span class="string">"orignal image"</span>)
+figure(2), imshow(uint8(gx)) , title(<span class="string">"x gradient image"</span>)
+figure(3), imshow(uint8(gy)) , title(<span class="string">"y gradient image"</span>)</pre>
+<img src="SOBEL_1-1.png" alt="SOBEL_1-1.png"><img src="SOBEL_1-2.png" alt="SOBEL_1-2.png"><img src="SOBEL_1-3.png" alt="SOBEL_1-3.png">
+<footer>
+<hr>
+<a href="https://www.octave.org">Published with GNU Octave 8.2.0</a>
+</footer>
+<!--
+##### SOURCE BEGIN #####
+clc;
+clear all;
+
+% read img
+f = double(imread('Img_3.tif'));
+[row, col] = size(f);
+
+% mask
+wx = [-1 -2 -1; 0 0 0; 1 2 1];
+wy = [-1 0 1 ; -2 0 2 ; -1 0 1 ];
+
+%main loops
+for x=2:1:(row-1)
+  for y=2:1:(col-1)
+    gx(x,y) =  f(x-1, y-1)*wx(1,1) + f(x-1, y)*wx(1,2) + f(x-1, y+1)*wx(1,3) +...
+          f(x, y-1)*wx(2,1) +f(x, y-1)*wx(2,2) +f(x, y-1)*wx(2,3) +...
+          f(x+1, y-1)*wx(3,1) +f(x+1, y-1)*wx(3,2) +f(x+1, y-1)*wx(3,3);
+
+    gy(x,y) =  f(x-1, y-1)*wy(1,1) + f(x-1, y)*wy(1,2) + f(x-1, y+1)*wy(1,3) +...
+          f(x, y-1)*wy(2,1) +f(x, y-1)*wy(2,2) +f(x, y-1)*wy(2,3) +...
+          f(x+1, y-1)*wy(3,1) +f(x+1, y-1)*wy(3,2) +f(x+1, y-1)*wy(3,3);
+  endfor
+endfor
+
+figure(1), imshow(uint8(f)) , title("orignal image")
+figure(2), imshow(uint8(gx)) , title("x gradient image")
+figure(3), imshow(uint8(gy)) , title("y gradient image")
+
+##### SOURCE END #####
+-->
+</body>
+</html>
