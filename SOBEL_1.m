@@ -5,9 +5,9 @@ clear all;
 f = double(imread('Img_3.tif'));
 [row, col] = size(f);
 
-% mask
-wx = [-1 -2 -1; 0 0 0; 1 2 1];
-wy = [-1 0 1 ; -2 0 2 ; -1 0 1 ];
+% Sobel mask                             % Prewitts mask 
+wx = [-1 -2 -1; 0 0 0; 1 2 1];     % wx = [-1 -1 -1; 0 0 0; 1 1 1] ;
+wy = [-1 0 1 ; -2 0 2 ; -1 0 1 ];  % wy = [ -1 0 1; -1 0 1; -1 0 1] ;
 
 %main loops
 for x=2:1:(row-1)
